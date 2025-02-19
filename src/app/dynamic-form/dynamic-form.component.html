@@ -1,0 +1,42 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Name:</label>
+      <input id="name" formControlName="name" />
+    </div>
+  
+    <div>
+      <label for="age">Age:</label>
+      <input id="age" formControlName="age" type="number" />
+    </div>
+  
+    <div>
+      <label for="gender">Gender:</label>
+      <select id="gender" formControlName="gender">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+  
+    <div formArrayName="addresses">
+      <div *ngFor="let address of addresses.controls; let i = index" [formGroupName]="i">
+        <div>
+          <label for="street">Street:</label>
+          <input id="street" formControlName="street" />
+        </div>
+  
+        <div>
+          <label for="city">City:</label>
+          <input id="city" formControlName="city" />
+        </div>
+      </div>
+    </div>
+  
+    <button type="button" (click)="addAddress()">Add Address</button>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </form>
+  
+  <div *ngIf="form.valid">
+    <h3>Submitted Data:</h3>
+    <pre>{{ form.value | json }}</pre>
+  </div>
+  
